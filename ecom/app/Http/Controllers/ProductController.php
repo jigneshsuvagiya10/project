@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $allprod = $products::get();
         // dd($allprod);
-        return view('admin.product',compact('allprod'));
+        return view('admin.product', compact('allprod'));
     }
 
     /**
@@ -35,9 +35,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(product $product,Request $request)
+    public function store(product $product, Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -49,7 +49,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         // $image = $request->file('image');
-        $imageName = time().'.'.$request->image->extension();
+        $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         $product->image = $imageName;
         $product->save();
@@ -67,7 +67,7 @@ class ProductController extends Controller
     {
         $allprod = $product::get();
         // dd($allprod);
-        return view('showproduct',compact('allprod'));
+        return view('showproduct', compact('allprod'));
     }
 
     /**
@@ -76,9 +76,11 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(product $product)
+    public function edit($id, product $product)
     {
-        //
+        $editpro = $product::find($id);
+
+        return view('admin.editproduct', compact('editpro'));
     }
 
     /**
@@ -88,9 +90,31 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, product $product)
+    public function update($id, Request $request, product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $update = $product::find($id);
+        // dd($update , $request);
+        $update->name = $request->name;
+        $update->description = $request->description;
+        $update->price = $request->price;
+
+        if ($update->image = $request->file('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $update->image = $imageName;
+        } else {
+            unset($update->image);
+        }
+        $update->save();
+        // dd($update);
+        return redirect('productdata');
     }
 
     /**
@@ -99,7 +123,7 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,product $product)
+    public function destroy($id, product $product)
     {
         $findprobyid = $product::find($id);
         // dd($findprobyid);

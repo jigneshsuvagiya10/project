@@ -16,7 +16,7 @@
                         </div>
                         <div class="card-footer text-center">
                             <a href="deleteproduct/{{$product->id}}" class="btn btn-danger">Delete</a>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="editproduct/{{$product->id}}" class="btn btn-primary">Edit</a>
                         </div>
             </div>
         </div>
