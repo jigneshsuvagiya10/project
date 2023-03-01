@@ -10,13 +10,13 @@
                 <img src="{{ asset('images/'.$product->image) }}" class="card-img-top" alt="Product image">
                 <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">{{ $product->name }}</a>
+                                <a href="#">{{$product->name}}</a>
                             </h4>
                             <h5>{{ $product->price }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <a href="# " class="btn btn-primary">Add to Cart</a>
                         </div>
             </div>
         </div>
