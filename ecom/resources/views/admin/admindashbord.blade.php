@@ -1,6 +1,11 @@
 @extends('layouts.appadmin')
 
 @section('content')
-    <h1>Admin Dashboard</h1>
-    <p>Welcome to the admin dashboard!</p>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <p class="text-black">Welcome back, <b>Admin</b></p>
+        </div>
+    </div>
+</div>
 @endsection
