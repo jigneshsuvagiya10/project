@@ -15,9 +15,16 @@ class CartController extends Controller
      */
     public function index(cart $cart)
     {
-        $cartdata = $cart::Join('products', 'products.id','=','carts.product_id')->where('user_id',Auth::user()->id)->get();
+        // \DB::enableQueryLog();
+        // $cartdata = $cart::get()->where('user_id',Auth::user()->id);
+        $cartdata = $cart::Join('products', 'carts.product_id', '=', 'products.id')->where('user_id', Auth::user()->id)->get();
         // dd($cartdata);
+        // $cartdata = \DB::table('carts')->Join('products', 'carts.product_id', '=', 'products.id')->where('user_id', Auth::user()->id)->get();
+        // $query = \DB::getQueryLog( );
+        // $query = end($query);
+        // dd($query);
         return view('cart', compact('cartdata'));
+
     }
 
     /**
@@ -29,7 +36,7 @@ class CartController extends Controller
     {
         //
     }
-    public function addtocart($id,cart $cart)
+    public function addtocart($id, cart $cart)
     {
         $uid = Auth::user()->id;
         // dd($uid);
@@ -37,7 +44,8 @@ class CartController extends Controller
         $cart->user_id = $uid;
         $cart->save();
 
-        return redirect("showproduct");
+        // return redirect("showproduct");
+        return redirect()->back()->with('success', 'Product add to cart successfully!');
     }
 
     /**

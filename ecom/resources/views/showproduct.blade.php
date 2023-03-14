@@ -2,7 +2,7 @@
 
 
 @section('content')
-<div class="containar">
+<!-- <div class="containar">
     <div class="row">
         @foreach($allprod as $product)
         <div class="col-lg-3 mt-3">
@@ -17,13 +17,28 @@
                 </div>
 
                 <div class="card-footer text-center">
-                    <!-- <a href="# " onclick="event.preventDefault(); addtocart('{{$product->id}}');" class="btn btn-primary">Add to Cart</a> -->
                     <a href="addtocart/{{$product->id}} " class="btn btn-primary">Add to Cart</a>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
+</div> -->
+
+<div class="row">
+    @foreach($allprod  as $product)
+        <div class="col-xs-18 col-sm-6 col-md-3">
+            <div class="">
+                <img src="{{ asset('images/'.$product->image) }}" width="290" height="200" alt="Product image">
+                <div class="">
+                    <h4>{{ $product->name }}</h4>
+                    <p>{{ $product->description }}</p>
+                    <p><strong>Price: </strong> ${{ $product->price }}</p>
+                    <p class="btn-holder"><a href="addtocart/{{$product->id}}" class="btn btn-success btn-block text-center" role="button">Add to cart</a> </p>
+                </div>
+            </div>
+        </div>
+    @endforeach
 </div>
 
 <!-- <script>

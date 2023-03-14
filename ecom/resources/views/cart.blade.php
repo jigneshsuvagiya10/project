@@ -2,56 +2,60 @@
 
 
 @section('content')
-<div class="containar">
-    <div class="row">
-        @foreach($cartdata as $product)
-        <!-- @php echo $product @endphp -->
-        <div class="col-lg-3 mt-3">
-            <div class="card">
-                <img src="{{ asset('images/'.$product->image) }}" class="card-img-top" alt="Product image">
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">{{$product->name}}</a>
-                    </h4>
-                    <h5>Price : {{ $product->price }}</h5>
-                    <h5>Quantity : {{ $product->quantity }}</h5>
-                </div>
-
-                <div class="card-footer text-center">
-                    <!-- <a href="# " onclick="event.preventDefault(); addtocart('{{$product->id}}');" class="btn btn-primary">Add to Cart</a> -->
-                    <a href="#" class="btn btn-danger">Buy</a>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div>
-<div class="container">
-    <div class="row ">
-        <div class="col-md-">
-            <div class="card">
-<table class="table table-striped table-bordered">
+  
+<table id="cart" class="table table-hover table-condensed">
     <thead>
         <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
+            <th style="width:50%">Product</th>
+            <th style="width:10%">Price</th>
+            <th style="width:8%">Quantity</th>
+            <th style="width:22%" class="text-center">Subtotal</th>
+            <th style="width:10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td> <img src="{{ asset('images/'.$product->image) }}" class="width:10; height:10;"></td>
-        </tr>
-
+        @php $total = 0 @endphp
+            @foreach($cartdata as $product)
+        {{dd($cartdata)}}
+            @php $total += $product->price * $product->quantity @endphp
+                <tr data-id="{{ $product->id }}">
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-sm-3 hidden-xs"><img src="{{ asset('images/'.$product->image) }}" width="100" height="100" class="img-responsive"/></div>
+                            <div class="col-sm-9">
+                                <h4 class="nomargin">{{ $product->name }}</h4>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-th="Price">${{ $product->price }}</td>
+                    <td data-th="Quantity">
+                        <input type="number" value="{{ $product->quantity }}" class="form-control quantity cart_update" min="1" />
+                    </td>
+                    <td data-th="Subtotal" class="text-center">${{$product->price * $product->quantity}}</td>
+                    <td class="actions" data-th="">
+                        <button class="btn btn-danger btn-sm cart_remove" onclick="event.preventDefault(); remove('{{$product->id}}');"><i class="fa fa-trash-o"></i> Delete</button>
+                    </td>
+                </tr>
+            @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td>
+        </tr>
+        <tr>
+            <td colspan="5" class="text-right">
+                <a href="{{ url('/') }}" class="btn btn-danger"> <i class="fa fa-arrow-left"></i> Continue Shopping</a>
+                <button class="btn btn-success"><i class="fa fa-money"></i> Checkout</button>
+            </td>
+        </tr>
+    </tfoot>
 </table>
-</div>
-</div>
-</div>
-</div>
 
 
-
+<script>
+    function remove(pid) {
+        console.log(pid);
+    }
+</script>
 @endsection
+  
