@@ -16,7 +16,6 @@
     <tbody>
         @php $total = 0 @endphp
             @foreach($cartdata as $product)
-        {{dd($cartdata)}}
             @php $total += $product->price * $product->quantity @endphp
                 <tr data-id="{{ $product->id }}">
                     <td data-th="Product">
@@ -54,7 +53,8 @@
 
 <script>
     function remove(pid) {
-        console.log(pid);
+        // console.log(pid);
+        fetch("http://localhost:8080/api/remove/"+pid).then((res)=>(res).json()).then((responce)=>{});
     }
 </script>
 @endsection

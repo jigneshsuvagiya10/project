@@ -99,8 +99,11 @@ class CartController extends Controller
      * @param  \App\Models\cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cart $cart)
+    public function destroy($id,cart $cart)
     {
-        //
+        // dd($id);
+        $cartbyid = $cart::find($id);
+        dd($cartbyid);
+        // $cartbyid->delete();
     }
 }
