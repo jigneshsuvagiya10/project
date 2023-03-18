@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\cart;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
     /**
@@ -13,11 +14,12 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(cart $cart)
+    public function index(cart $cart,product $products)
     {
         // \DB::enableQueryLog();
         // $cartdata = $cart::get()->where('user_id',Auth::user()->id);
-        $cartdata = $cart::Join('products', 'carts.product_id', '=', 'products.id')->where('user_id', Auth::user()->id)->get();
+        $cartdata=DB::table('products')->join('carts','carts.product_id','=','products.id')->select('carts.*','products.name','products.price','products.image')->where('user_id', Auth::user()->id)->get();
+        // $cartdata = DB::table('products')->Join('carts', 'products.id', '=', 'carts.product_id')->select()->where('user_id', Auth::user()->id)->get();
         // dd($cartdata);
         // $cartdata = \DB::table('carts')->Join('products', 'carts.product_id', '=', 'products.id')->where('user_id', Auth::user()->id)->get();
         // $query = \DB::getQueryLog( );
@@ -36,12 +38,13 @@ class CartController extends Controller
     {
         //
     }
-    public function addtocart($id, cart $cart)
+    public function addtocart($id,request $request,cart $cart)
     {
         $uid = Auth::user()->id;
         // dd($uid);
         $cart->product_id = $id;
         $cart->user_id = $uid;
+        $cart->quantity = $request->quantity;
         $cart->save();
 
         // return redirect("showproduct");
@@ -103,7 +106,10 @@ class CartController extends Controller
     {
         // dd($id);
         $cartbyid = $cart::find($id);
-        dd($cartbyid);
-        // $cartbyid->delete();
+        // dd($cartbyid);
+        $cartbyid->delete();
+        // return redirect("cart");
+        // return redirect()->back();
+        return view('cart');
     }
 }

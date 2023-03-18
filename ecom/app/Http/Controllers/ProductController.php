@@ -37,23 +37,25 @@ class ProductController extends Controller
      */
     public function store(product $product, Request $request)
     {
-
+        // $data = $request;
+        // dd($data);
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'category' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->category = $request->category;
         // $image = $request->file('image');
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         $product->image = $imageName;
         $product->save();
-        // dd($request);
         return redirect('productdata');
     }
 

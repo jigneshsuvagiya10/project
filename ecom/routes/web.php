@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
@@ -37,5 +38,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth:sanctum')->get('/addtocart/{id}', [CartController::class, 'addtocart']);
+Route::middleware('auth:sanctum')->post('/addtocart/{id}', [CartController::class, 'addtocart']);
 Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);

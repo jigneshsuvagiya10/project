@@ -8,14 +8,14 @@
         <tr>
             <th style="width:50%">Product</th>
             <th style="width:10%">Price</th>
-            <th style="width:8%">Quantity</th>
+            <th style="width:8%" class="text-center">Quantity</th>
             <th style="width:22%" class="text-center">Subtotal</th>
             <th style="width:10%"></th>
         </tr>
     </thead>
     <tbody>
         @php $total = 0 @endphp
-            @foreach($cartdata as $product)
+        @foreach($cartdata as $product)
             @php $total += $product->price * $product->quantity @endphp
                 <tr data-id="{{ $product->id }}">
                     <td data-th="Product">
@@ -27,9 +27,10 @@
                         </div>
                     </td>
                     <td data-th="Price">${{ $product->price }}</td>
-                    <td data-th="Quantity">
+                    <td data-th="Quantity" class="text-center">{{ $product->quantity }}</td>
+                    <!-- <td data-th="Quantity">
                         <input type="number" value="{{ $product->quantity }}" class="form-control quantity cart_update" min="1" />
-                    </td>
+                    </td> -->
                     <td data-th="Subtotal" class="text-center">${{$product->price * $product->quantity}}</td>
                     <td class="actions" data-th="">
                         <button class="btn btn-danger btn-sm cart_remove" onclick="event.preventDefault(); remove('{{$product->id}}');"><i class="fa fa-trash-o"></i> Delete</button>
@@ -54,7 +55,7 @@
 <script>
     function remove(pid) {
         // console.log(pid);
-        fetch("http://localhost:8080/api/remove/"+pid).then((res)=>(res).json()).then((responce)=>{});
+        fetch("http://localhost:8080/api/remove/"+pid).then((res)=>(res).json()).then((responce)=>{ });
     }
 </script>
 @endsection
