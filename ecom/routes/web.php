@@ -40,3 +40,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware('auth:sanctum')->post('/addtocart/{id}', [CartController::class, 'addtocart']);
 Route::middleware('auth:sanctum')->get('/cart', [CartController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/order', [CartController::class, 'order']);

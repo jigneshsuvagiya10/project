@@ -34,11 +34,11 @@
                 <h4>{{ $product->name }}</h4>
                 <p>{{ $product->description }}</p>
                 <p><strong>Price: </strong> ${{ $product->price }}</p>
-                <form method="post" action="addtocart/{{$product->id}}">
-                @csrf
+                <form method="post" id="cartform" action="addtocart/{{$product->id}}">
+                    @csrf
                     <p><strong>Quantity: </strong>
-                        <input type="number" name="quantity" id="quantity" value="1" style="width:100px" min="1" />
-                    </p>
+                        <input type="number" name="quantity" id="quantity" value="1" style="width:50px" min="1" />
+                    </p>    
                     <!-- <p class="btn-holder"><a href="addtocart/{{$product->id}}" class="btn btn-success btn-block text-center" role="button">Add to cart</a> </p> -->
                     <button type="submit" class="btn btn-success">Add To Cart</button>
                 </form>
@@ -50,10 +50,23 @@
 
 <!-- <script>
     function addtocart(pid) {
-        console.log(pid);
-        fetch("http://localhost:8080/api/addtocart/"+pid)
+        // console.log(pid);
+        var result = {}
+        $.each($('#cartform').serializeArray(), function() {
+            result[this.name] = this.value;
+        });
+        // console.log(result);
+        fetch("http://localhost:8000/api/addcart",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+            })
             .then((response) => response.json())
-            .then((res) => {});
+            .then((res) => {
+                console.log(res);
+            });
     }
 </script> -->
 

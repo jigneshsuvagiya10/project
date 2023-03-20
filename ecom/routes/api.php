@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route::get('/cartdata', [CartController::class, 'cartdata']);
 Route::get('/remove/{id}', [CartController::class, 'destroy']);
+// Route::middleware('auth:sanctum')->post('/addcart/{id}', [CartController::class, 'addtocart']);

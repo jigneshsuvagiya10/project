@@ -16,8 +16,6 @@ class CartController extends Controller
      */
     public function index(cart $cart,product $products)
     {
-        // \DB::enableQueryLog();
-        // $cartdata = $cart::get()->where('user_id',Auth::user()->id);
         $cartdata=DB::table('products')->join('carts','carts.product_id','=','products.id')->select('carts.*','products.name','products.price','products.image')->where('user_id', Auth::user()->id)->get();
         // $cartdata = DB::table('products')->Join('carts', 'products.id', '=', 'carts.product_id')->select()->where('user_id', Auth::user()->id)->get();
         // dd($cartdata);
@@ -26,6 +24,13 @@ class CartController extends Controller
         // $query = end($query);
         // dd($query);
         return view('cart', compact('cartdata'));
+
+    }
+    public function order(cart $cart,product $products)
+    {
+        $orderdata=DB::table('products')->join('carts','carts.product_id','=','products.id')->select('carts.*','products.name','products.price','products.image')->where('user_id', Auth::user()->id)->get();
+        // dd($cartdata);
+        return view('order', compact('orderdata'));
 
     }
 
@@ -37,6 +42,14 @@ class CartController extends Controller
     public function create()
     {
         //
+    }
+    public function cartdata(cart $cart,product $products)
+    {
+        $oid =  optional(Auth::user())->id;
+        dd($oid);
+        // $cartd = $cart::get();
+        // $cartd=DB::table('products')->join('carts','carts.product_id','=','products.id')->select('carts.*','products.name','products.price','products.image')->where('user_id', $oid)->get();
+        // echo $cartd;
     }
     public function addtocart($id,request $request,cart $cart)
     {
@@ -110,6 +123,6 @@ class CartController extends Controller
         $cartbyid->delete();
         // return redirect("cart");
         // return redirect()->back();
-        return view('cart');
+        // return view('cart');
     }
 }
