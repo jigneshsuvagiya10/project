@@ -61,7 +61,6 @@
     //         console.log(responce);
     //     });
     // }
-
     function remove(pid) {
         // console.log(pid);
         fetch("http://localhost:8080/api/remove/" + pid).then((res) => (res).json()).then((responce) => {});

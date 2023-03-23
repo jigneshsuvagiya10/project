@@ -18,6 +18,7 @@
             <table id="cart" class="table table-hover table-condensed border">
                 <thead>
                     <tr>
+
                         <th style="width:50%">Product</th>
                         <th style="width:10%">Price</th>
                         <th style="width:8%" class="text-center">Quantity</th>
@@ -75,7 +76,6 @@
     // }
 
     function remove(pid) {
-        // console.log(pid);
         fetch("http://localhost:8080/api/remove/" + pid).then((res) => (res).json()).then((responce) => {});
         window.location.reload();
     }
