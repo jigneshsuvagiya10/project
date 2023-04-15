@@ -32,7 +32,7 @@
             <a class="navbar-brand" href="home">E-Shop</a>
             <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Dashboard</a>
+                            <a class="nav-link" href="home">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Other</a>

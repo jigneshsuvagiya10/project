@@ -29,7 +29,7 @@
                             <a class="nav-link" href="productdata">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="order">Order</a>
+                            <a class="nav-link" href="#">Order</a>
                         </li>
                     </ul>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -86,7 +86,7 @@
         @yield('content')
     </main>
 
-    <footer class="footer mt-auto py-3">
+    <footer class="footer mt-auto py-3 ">
         <div class="container">
             <span class="text-muted">My Website &copy; {{ date('Y') }}</span>
         </div>
